@@ -15,3 +15,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Giphy Stock"
 include ':app'
+include ':domain'
+include ':data'
