@@ -9,13 +9,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ndmrzzzv.giphystock.databinding.FragmentMainListBinding
 import com.ndmrzzzv.giphystock.fragment.main.view.adapter.GifAdapter
-import com.ndmrzzzv.giphystock.fragment.main.view.interfaces.NavigateToGif
+import com.ndmrzzzv.giphystock.fragment.main.view.interfaces.NavigateToGifListener
 import com.ndmrzzzv.giphystock.fragment.screen_features.FullscreenFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainFragment : Fragment(), NavigateToGif {
+class MainFragment : Fragment(), NavigateToGifListener {
 
-    private lateinit var binding: FragmentMainListBinding
+    private var _binding: FragmentMainListBinding? = null
+    private val binding get() = _binding!!
+
     private val viewModel by viewModel<MainViewModel>()
     private val adapter = GifAdapter(listOf(), this)
 
@@ -24,22 +26,26 @@ class MainFragment : Fragment(), NavigateToGif {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMainListBinding.inflate(inflater, container, false)
+        _binding = FragmentMainListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         FullscreenFragment.hide(activity?.window, binding.root)
-        viewModel.getAllGifs()
 
         initObservers()
         initializeRecyclerView()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun initObservers() {
         viewModel.gifs.observe(viewLifecycleOwner) {
-            adapter.update(it)
+            adapter.setList(it)
         }
     }
 

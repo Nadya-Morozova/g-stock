@@ -15,7 +15,7 @@ class MainViewModel(
     private val _gifs = MutableLiveData<List<Gif>>()
     val gifs: LiveData<List<Gif>> = _gifs
 
-    fun getAllGifs() {
+    init {
         viewModelScope.launch {
             _gifs.value = getAllTrendGifsUseCase.invoke()
         }

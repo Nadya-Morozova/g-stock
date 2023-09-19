@@ -7,12 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ndmrzzzv.domain.model.Gif
 import com.ndmrzzzv.giphystock.databinding.ItemGifBinding
 import com.ndmrzzzv.giphystock.fragment.main.view.holder.GifViewHolder
-import com.ndmrzzzv.giphystock.fragment.main.view.interfaces.NavigateToGif
+import com.ndmrzzzv.giphystock.fragment.main.view.interfaces.NavigateToGifListener
 
 class GifAdapter(
     private var gifs: List<Gif>,
-    private val navigateToGif: NavigateToGif
+    private val navigateToGifListener: NavigateToGifListener
 ) : RecyclerView.Adapter<GifViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GifViewHolder {
         val binding = ItemGifBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return GifViewHolder(binding)
@@ -23,14 +24,14 @@ class GifAdapter(
         holder.bind(gif)
 
         holder.itemView.setOnClickListener {
-            navigateToGif.navigate(gif.id ?: "")
+            navigateToGifListener.navigate(gif.id ?: "")
         }
     }
 
     override fun getItemCount(): Int = gifs.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun update(listOfGifs: List<Gif>) {
+    fun setList(listOfGifs: List<Gif>) {
         gifs = listOfGifs
         notifyDataSetChanged()
     }

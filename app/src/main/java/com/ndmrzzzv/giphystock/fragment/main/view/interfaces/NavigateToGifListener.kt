@@ -1,6 +1,6 @@
 package com.ndmrzzzv.giphystock.fragment.main.view.interfaces
 
-interface NavigateToGif {
+interface NavigateToGifListener {
 
     fun navigate(id: String)
 

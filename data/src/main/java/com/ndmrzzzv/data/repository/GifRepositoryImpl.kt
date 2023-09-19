@@ -1,6 +1,5 @@
 package com.ndmrzzzv.data.repository
 
-import android.util.Log
 import com.ndmrzzzv.data.api.GiphyApi
 import com.ndmrzzzv.domain.model.Gif
 import com.ndmrzzzv.domain.repository.GifRepository

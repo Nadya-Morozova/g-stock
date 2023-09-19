@@ -4,9 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
@@ -18,7 +15,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailFragment : Fragment() {
 
-    private lateinit var binding: FragmentDetailGifBinding
+    private var _binding: FragmentDetailGifBinding? = null
+    private val binding get() = _binding!!
     private val viewModel by viewModel<DetailViewModel>()
     private val args: DetailFragmentArgs by navArgs()
 
@@ -27,7 +25,7 @@ class DetailFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentDetailGifBinding.inflate(inflater, container, false)
+        _binding = FragmentDetailGifBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -39,6 +37,11 @@ class DetailFragment : Fragment() {
         viewModel.getInfoAboutGif(args.id)
 
         initObservers()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun initObservers() {
