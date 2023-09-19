@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import com.ndmrzzzv.giphystock.R
 import com.ndmrzzzv.giphystock.databinding.FragmentDetailGifBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -20,7 +18,7 @@ class DetailFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail_gif, container, false)
+        binding = FragmentDetailGifBinding.inflate(inflater, container, false)
 
         return binding.root
     }
