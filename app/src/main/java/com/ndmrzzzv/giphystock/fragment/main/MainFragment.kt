@@ -5,16 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ndmrzzzv.giphystock.databinding.FragmentMainListBinding
 import com.ndmrzzzv.giphystock.fragment.main.view.adapter.GifAdapter
+import com.ndmrzzzv.giphystock.fragment.main.view.interfaces.NavigateToGif
+import com.ndmrzzzv.giphystock.fragment.screen_features.FullscreenFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), NavigateToGif {
 
     private lateinit var binding: FragmentMainListBinding
     private val viewModel by viewModel<MainViewModel>()
-    private val adapter = GifAdapter(listOf())
+    private val adapter = GifAdapter(listOf(), this)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,6 +30,7 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        FullscreenFragment.hide(activity?.window, binding.root)
         viewModel.getAllGifs()
 
         initObservers()
@@ -42,6 +46,12 @@ class MainFragment : Fragment() {
     private fun initializeRecyclerView() {
         binding.rvGifs.adapter = adapter
         binding.rvGifs.layoutManager = GridLayoutManager(requireContext(), 2)
+    }
+
+    override fun navigate(id: String) {
+        findNavController().navigate(
+            MainFragmentDirections.actionMainFragmentToDetailFragment(id)
+        )
     }
 
 }

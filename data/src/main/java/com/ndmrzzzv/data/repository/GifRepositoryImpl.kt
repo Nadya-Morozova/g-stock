@@ -1,5 +1,6 @@
 package com.ndmrzzzv.data.repository
 
+import android.util.Log
 import com.ndmrzzzv.data.api.GiphyApi
 import com.ndmrzzzv.domain.model.Gif
 import com.ndmrzzzv.domain.repository.GifRepository
@@ -17,7 +18,8 @@ class GifRepositoryImpl(
     }
 
     override suspend fun getDetailedGif(id: String): Gif {
-        TODO("Not yet implemented")
+        val result = gifsApi.getGif(id).data
+        return Gif(result.id, result.title, result.images.original.url)
     }
 
 }

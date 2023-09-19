@@ -10,8 +10,6 @@ class GifInterceptor : Interceptor {
 
         val newUrl = request.url.newBuilder()
             .addQueryParameter("api_key", "FrH7U8B1VAy0v4siFTI5KEl2VL2XEQ8O")
-            .addQueryParameter("limit", "20")
-            .addQueryParameter("rating", "g")
             .build()
 
         val newRequest = request.newBuilder()
