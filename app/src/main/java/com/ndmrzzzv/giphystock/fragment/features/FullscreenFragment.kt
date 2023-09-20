@@ -1,4 +1,4 @@
-package com.ndmrzzzv.giphystock.fragment.screen_features
+package com.ndmrzzzv.giphystock.fragment.features
 
 import android.view.View
 import android.view.Window

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Giphy Stock</string>
     <string name="img_gif">img_gif</string>
+    <string name="you_don_t_have_internet_connection">You don`t have internet connection. Try to refresh app.</string>
 </resources>

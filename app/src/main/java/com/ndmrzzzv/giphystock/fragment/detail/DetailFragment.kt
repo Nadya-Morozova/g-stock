@@ -14,7 +14,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.ndmrzzzv.giphystock.databinding.FragmentDetailGifBinding
-import com.ndmrzzzv.giphystock.fragment.screen_features.FullscreenFragment
+import com.ndmrzzzv.giphystock.fragment.features.FullscreenFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailFragment : Fragment() {
@@ -50,9 +50,14 @@ class DetailFragment : Fragment() {
 
     private fun initObservers() {
         viewModel.gif.observe(viewLifecycleOwner) { gif ->
+            if (gif == null) {
+                binding.progressBar.visibility = View.GONE
+                binding.tvMessage.visibility = View.VISIBLE
+            }
+
             Glide
                 .with(requireContext())
-                .load(gif.url)
+                .load(gif?.url)
                 .listener(object : RequestListener<Drawable> {
                     override fun onResourceReady(
                         resource: Drawable?,

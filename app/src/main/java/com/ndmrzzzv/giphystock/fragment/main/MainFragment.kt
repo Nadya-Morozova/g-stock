@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ndmrzzzv.giphystock.databinding.FragmentMainListBinding
 import com.ndmrzzzv.giphystock.fragment.main.view.adapter.GifAdapter
 import com.ndmrzzzv.giphystock.fragment.main.view.interfaces.NavigateToGifListener
-import com.ndmrzzzv.giphystock.fragment.screen_features.FullscreenFragment
+import com.ndmrzzzv.giphystock.fragment.features.FullscreenFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment(), NavigateToGifListener {
@@ -45,6 +46,11 @@ class MainFragment : Fragment(), NavigateToGifListener {
 
     private fun initObservers() {
         viewModel.gifs.observe(viewLifecycleOwner) {
+            if (it == null) {
+                binding.tvMessage.visibility = View.VISIBLE
+                return@observe
+            }
+
             adapter.setList(it)
         }
     }
